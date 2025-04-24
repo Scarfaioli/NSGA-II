@@ -7,33 +7,25 @@ import Interfaces.IIndividuo;
 
 public class Example implements IIndividuo {
 
-    double var[];
     double func[];
-    List<Example> s = new ArrayList<>();
+    List<IIndividuo> s = new ArrayList<>();
     int n = 0;
     int rank = 0;
     String descricao;
 
-    Example(double[] x) {
-
-    }
-
-    @Override
-    public void getResponse() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getResponse'");
+    Example(double[] x, String descricao) {
+        this.func = x;
+        this.descricao = descricao;
     }
 
     @Override
     public List<IIndividuo> getDominados() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getDominados'");
+        return this.s;
     }
 
     @Override
     public int getNumeroDominantes() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getNumeroDominantes'");
+        return this.n;
     }
 
     @Override
@@ -48,44 +40,56 @@ public class Example implements IIndividuo {
 
     @Override
     public void createDominados() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'createDominados'");
+        this.s = new ArrayList<>();
     }
 
     @Override
     public void resetDominantes() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'resetDominantes'");
+        this.n = 0;
     }
 
     @Override
-    public int getAvaliacao(IIndividuo individuo) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getAvaliacao'");
+    public int getAvaliacao(double func[]) {
+        boolean dominando = true;
+        boolean dominado = true;
+
+        for (int i = 0; i < this.func.length; i++) {
+            if(this.func[i]<func[i])
+                dominado = false;
+            else if(this.func[i]>func[i])
+                dominando = false;
+        }
+        if(dominado == dominando){
+            return -1;
+        }else if(dominado){
+            return 0;
+        }
+        return 1;
     }
     
     @Override
-    public int domina(IIndividuo dominado) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'domina'");
+    public void domina(IIndividuo dominado) {
+        this.s.add(dominado);
     }
 
     @Override
-    public int dominado() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'dominado'");
+    public void dominado() {
+        this.n++;
     }
 
     @Override
-    public int setRank(int rank) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setRank'");
+    public void setRank(int rank) {
+        this.rank = rank;
     }
 
     @Override
     public void dominadoDecremento() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'dominadoDecremento'");
+        this.n--;
+    }
+
+    @Override
+    public double[] getFunc() {
+        return this.func;
     }
 
 }

@@ -4,14 +4,12 @@ import java.util.List;
 
 public interface IIndividuo {
 
-    public void getResponse();
-
     /**
      * 
      * @param individuo
-     * @return 1 se domina, 0 se é dominado
+     * @return 1 se domina, 0 se é dominado e -1 caso não há dominancia
      */
-    public int getAvaliacao(IIndividuo individuo);
+    public int getAvaliacao(double[] func);
 
     public List<IIndividuo> getDominados();
     
@@ -19,17 +17,19 @@ public interface IIndividuo {
 
     public void createDominados();
 
+    public double[] getFunc();
+
     public void resetDominantes();
     
     public String getDescricao();
     
     public int getRank();
     
-    public int setRank(int rank);
+    public void setRank(int rank);
     
-    public int domina(IIndividuo dominado);
+    public void domina(IIndividuo dominado);
 
-    public int dominado();
+    public void dominado();
 
     public void dominadoDecremento();
 }

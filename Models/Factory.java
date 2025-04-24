@@ -7,34 +7,42 @@ import Interfaces.IIndividuo;
 
 public class Factory {
 
-    public void run(List<IIndividuo> indList){
+    private List<IIndividuo> indList;
+    
+    public Factory(){
+        this.indList = new ArrayList<>();
 
-    }
-
-    public Example createIndividuoExample(double var[])
-    {
-        return new Example(var);
-    }
-
-    public List<List<IIndividuo>> createFrontieras(int tipo){
-        return new ArrayList<>();
+        this.indList.add(new Example(new double[]{1, 5}, "A"));
+        this.indList.add(new Example(new double[]{2, 3}, "B"));
+        this.indList.add(new Example(new double[]{4, 1}, "C"));
+        this.indList.add(new Example(new double[]{3, 4}, "D"));
+        this.indList.add(new Example(new double[]{4, 3}, "E"));
+        this.indList.add(new Example(new double[]{5, 5}, "F"));
     }
 
     public void imprimirFronteiras(List<List<IIndividuo>> fronteirasList){
-
+        int i = 1;
+        for (List<IIndividuo> fronteira : fronteirasList) {
+            System.out.print("Fronteira "+i+":");
+            for (IIndividuo individuo : fronteira) {
+                System.out.print(" "+individuo.getDescricao());
+            }
+            System.out.println();
+            ++i;
+        }
     }
 
-    public List<List<IIndividuo>> Fnds(List<IIndividuo> indList){
+    public List<List<IIndividuo>> Fnds(){
         List<List<IIndividuo>> fronteiraList = new ArrayList<>();
         fronteiraList.add(new ArrayList<>());
         List<IIndividuo> fi = fronteiraList.get(0);
 
         //Calculo da primeira fronteira O(n²)
-        for (IIndividuo iIndividuo : indList) {
+        for (IIndividuo iIndividuo : this.indList) {
             iIndividuo.createDominados();
             iIndividuo.resetDominantes();
-            for (IIndividuo iIndividuo2 : indList) {
-                int domina = iIndividuo.getAvaliacao(iIndividuo2);
+            for (IIndividuo iIndividuo2 : this.indList) {
+                int domina = iIndividuo.getAvaliacao(iIndividuo2.getFunc());
                 if(domina == 0){
                     iIndividuo.dominado();
                 } else if (domina == 1){
@@ -62,6 +70,6 @@ public class Factory {
             fi = fronteiraList.get(i);
             i++;
         }
-        return null;
+        return fronteiraList;
     }
 }
