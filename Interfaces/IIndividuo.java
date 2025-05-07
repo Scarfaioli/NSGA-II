@@ -11,6 +11,8 @@ public interface IIndividuo {
      */
     public int getAvaliacao(double[] func);
 
+    public int compareTo(IIndividuo b);
+
     public List<IIndividuo> getDominados();
     
     public int getNumeroDominantes();
@@ -18,6 +20,8 @@ public interface IIndividuo {
     public void createDominados();
 
     public double[] getFunc();
+
+    public double getFunc(int i);
 
     public void resetDominantes();
     
@@ -31,5 +35,11 @@ public interface IIndividuo {
 
     public void dominado();
 
+    public double getDistance();
+
+    public void setDistance(double distance);
+
     public void dominadoDecremento();
+
+    public void calcDist(int i, double fmax, double fmin, double anterior, double proximo);
 }

@@ -5,12 +5,15 @@ import Models.Factory;
 
 public class Main {
     public static void main(String[] args) {
-        //Inicializar Lista de individuos
         Factory factory =  new Factory();
-        //factory.escolheBase(1);
-        //Encontrar fronteiras
-        List<List<IIndividuo>> fronteiras = factory.Fnds();
-        //Imprimir fronteiras
-        factory.imprimirFronteiras(fronteiras);
+        List<IIndividuo> pop = factory.createPopIni();
+
+        List<List<IIndividuo>> fronteiras = NSGAII.fnds(pop);
+
+        NSGAII.imprimirFronteiras(fronteiras);
+
+        NSGAII.crowdingDistance(fronteiras);
+        
+        NSGAII.imprimirCrowdDist(fronteiras);
     }
 }

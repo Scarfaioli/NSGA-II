@@ -12,6 +12,7 @@ public class Example implements IIndividuo {
     int n = 0;
     int rank = 0;
     String descricao;
+    public double distance;
 
     Example(double[] x, String descricao) {
         this.func = x;
@@ -90,6 +91,37 @@ public class Example implements IIndividuo {
     @Override
     public double[] getFunc() {
         return this.func;
+    }
+
+    @Override
+    public int compareTo(IIndividuo b) {
+        if(this.distance > b.getDistance()){
+            return 1;
+        }else if(this.distance < b.getDistance()){
+            return -1;
+        }
+        return 0;
+    }
+
+    @Override
+    public double getDistance() {
+        return this.distance;
+    }
+
+    @Override
+    public void setDistance(double distance) {
+        this.distance = distance;
+    }
+
+    @Override
+    public double getFunc(int i) {
+        return this.func[i];
+    }
+
+    @Override
+    public void calcDist(int i, double fmax, double fmin, double anterior, double proximo) {
+        double aux = (proximo - anterior)/(fmax - fmin);
+        this.distance += aux;
     }
 
 }
