@@ -1,6 +1,4 @@
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Comparator;
 import java.util.List;
 
 import Interfaces.IIndividuo;
@@ -47,27 +45,25 @@ public class NSGAII {
         return fronteiraList;
     }
 
-    public static void crowdingDistance(List<List<IIndividuo>> frontList){
-        for (List<IIndividuo> fronteira : frontList) {
-            if (fronteira.isEmpty()) break;
-            int l = fronteira.size();
-            for (IIndividuo individuo : fronteira) {
-                individuo.setDistance(0.0);
-            }
-            for (int i = 0; i < fronteira.get(0).getFunc().length; i++) {
-                Utils.sort(fronteira, i);
-                double fmax, fmin;
+    public static void crowdingDistance(List<IIndividuo> fronteira){
+        if (fronteira.size() < 3) return;
+        int l = fronteira.size();
+        for (IIndividuo individuo : fronteira) {
+            individuo.setDistance(0.0);
+        }
+        for (int i = 0; i < fronteira.get(0).getFunc().length; i++) {
+            Utils.sort(fronteira, i);
+            double fmax, fmin;
 
-                fmin = fronteira.get(0).getFunc(i);
-                fmax = fronteira.get(l-1).getFunc(i);
+            fmin = fronteira.get(0).getFunc(i);
+            fmax = fronteira.get(l-1).getFunc(i);
 
-                fronteira.get(0).setDistance(Double.MAX_VALUE);
-                fronteira.get(l-1).setDistance(Double.MAX_VALUE);
-                
-                for (int j = 1; j < fronteira.size()-1; j++) {
-                    double anterior = fronteira.get(j-1).getFunc(i), proximo = fronteira.get(j+1).getFunc(i);
-                    fronteira.get(j).calcDist(i, fmax, fmin, anterior, proximo);
-                }
+            fronteira.get(0).setDistance(Double.MAX_VALUE);
+            fronteira.get(l-1).setDistance(Double.MAX_VALUE);
+            
+            for (int j = 1; j < fronteira.size()-1; j++) {
+                double anterior = fronteira.get(j-1).getFunc(i), proximo = fronteira.get(j+1).getFunc(i);
+                fronteira.get(j).calcDist(i, fmax, fmin, anterior, proximo);
             }
         }
 
@@ -95,11 +91,16 @@ public class NSGAII {
                 if (individuo.getDistance() == Double.MAX_VALUE) {
                     System.out.print(" "+individuo.getDescricao()+ " distancia = INF+, ");    
                 } else{
-                    System.out.print(" "+individuo.getDescricao()+ " distancia = "+individuo.getDistance()+", ");
+                    System.out.printf(" %s distancia = %.3f , ", individuo.getDescricao(), individuo.getDistance());
                 }
             }
             System.out.println();
             ++i;
         }
+    }
+
+    public static List<IIndividuo> selecionar(List<IIndividuo> pop) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'selecionar'");
     }
 }
