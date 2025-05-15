@@ -27,6 +27,9 @@ public class Main {
             Utils.sort(fronteiras.get(i), "distance");
             NSGAII.imprimirCrowdDist(fronteiras);
 
+            nextPop.addAll(fronteiras.get(i).subList(0, tamanho - nextPop.size()));
+            pop = nextPop;
+
             numeroGeracao++;
         }
     }
