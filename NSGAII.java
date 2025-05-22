@@ -78,6 +78,7 @@ public class NSGAII {
                 System.out.print(" "+individuo.getDescricao());
             }
             System.out.println();
+            System.out.println();
             ++i;
         }
     }
@@ -97,10 +98,5 @@ public class NSGAII {
             System.out.println();
             ++i;
         }
-    }
-
-    public static List<IIndividuo> selecionar(List<IIndividuo> pop) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'selecionar'");
     }
 }

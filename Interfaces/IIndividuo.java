@@ -1,5 +1,4 @@
 package Interfaces;
-
 import java.util.List;
 
 public interface IIndividuo {
@@ -42,4 +41,8 @@ public interface IIndividuo {
     public void dominadoDecremento();
 
     public void calcDist(int i, double fmax, double fmin, double anterior, double proximo);
+
+    public List<IIndividuo> crossover(IIndividuo iIndividuo, int ger);
+
+    public double getX(int i);
 }

@@ -7,22 +7,22 @@ import Interfaces.IIndividuo;
 
 public class Factory {
 
-    public List<IIndividuo> createPopIni(int tamanho) {
+    public List<IIndividuo> createPopIni(int tamanho, int ger) {
         List<IIndividuo> indList = new ArrayList<>();
 
-        indList.add(new Example(new double[]{1, 5}, "A"));
-        indList.add(new Example(new double[]{2, 3}, "B"));
-        indList.add(new Example(new double[]{4, 1}, "C"));
-        indList.add(new Example(new double[]{1.5, 4}, "D"));
-        //indList.add(new Example(new double[]{4, 3}, "E"));
-        //indList.add(new Example(new double[]{5, 5}, "F"));
-
+        for (int i = 0; i < tamanho; i++) {
+            Example example = new Example(new double[] { Math.random(), Math.random() }, ger);
+            indList.add(example);
+        }
         return indList;
     }
 
-    public List<IIndividuo> makeChildren(List<IIndividuo> pop) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'makeChildren'");
+    public void makeChildren(List<IIndividuo> pop, int ger) {
+        List<IIndividuo> filhos = new ArrayList<>();
+        for (int i = 0; i < pop.size()/2; i++) {
+            filhos.addAll(pop.get(i).crossover(pop.get(pop.size()-1-i), ger));
+        }
+        pop.addAll(filhos);
     }
 
     

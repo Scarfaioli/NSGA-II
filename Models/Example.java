@@ -2,21 +2,33 @@ package Models;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import Interfaces.IIndividuo;
 
 public class Example implements IIndividuo {
 
     double func[];
+    double x[];
     List<IIndividuo> s = new ArrayList<>();
     int n = 0;
     int rank = 0;
     String descricao;
     public double distance;
 
-    Example(double[] x, String descricao) {
-        this.func = x;
-        this.descricao = descricao;
+    Example(double[] x, int ger) {
+        this.x = x;
+        this.func = new double[x.length];
+        for (int i = 0; i < this.func.length; i++) {
+            this.func[i] = 0;
+            for (int j = 0; j < x.length; j++) {
+                int c = 0;
+                if(i == j)
+                    c = 1;
+                this.func[i] += Math.pow(x[j] - c, 2);
+            }
+        }
+        this.descricao = "Individuo " + ger;
     }
 
     @Override
@@ -124,4 +136,24 @@ public class Example implements IIndividuo {
         this.distance += aux;
     }
 
+    @Override
+    public List<IIndividuo> crossover(IIndividuo iIndividuo, int ger) {
+        List<IIndividuo> filhos = new ArrayList<>();
+        Random random = new Random();
+        double[] x = new double[this.x.length];
+        for (int i = 0; i < x.length; i++) {
+            x[i] = (x[i] + random.nextGaussian(0, 0.3)*Math.abs(x[i]-iIndividuo.getX(i)));
+        }
+            filhos.add(new Example(x, ger));
+        for (int i = 0; i < x.length; i++) {
+            x[i] = (iIndividuo.getX(i) + random.nextGaussian(0, 0.1)*Math.abs(x[i]-iIndividuo.getX(i)));
+        }
+            filhos.add(new Example(x, ger));
+        return filhos;
+    }
+
+    @Override
+    public double getX(int i) {
+        return this.x[i];
+    }
 }
