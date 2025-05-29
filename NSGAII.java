@@ -44,9 +44,13 @@ public class NSGAII {
         }
         return fronteiraList;
     }
-
+    
     public static void crowdingDistance(List<IIndividuo> fronteira){
-        if (fronteira.size() < 3) return;
+        if (fronteira.size() < 3) {
+            fronteira.get(0).setDistance(Double.MAX_VALUE);
+            if(fronteira.size() == 2) fronteira.get(1).setDistance(Double.MAX_VALUE);
+            return;
+        }
         int l = fronteira.size();
         for (IIndividuo individuo : fronteira) {
             individuo.setDistance(0.0);
@@ -60,7 +64,7 @@ public class NSGAII {
 
             fronteira.get(0).setDistance(Double.MAX_VALUE);
             fronteira.get(l-1).setDistance(Double.MAX_VALUE);
-            
+
             for (int j = 1; j < fronteira.size()-1; j++) {
                 double anterior = fronteira.get(j-1).getFunc(i), proximo = fronteira.get(j+1).getFunc(i);
                 fronteira.get(j).calcDist(i, fmax, fmin, anterior, proximo);

@@ -24,9 +24,14 @@ public class Main {
             NSGAII.crowdingDistance(fronteiras.get(i));
             Utils.sort(fronteiras.get(i), "distance");
 
-            nextPop.addAll(fronteiras.get(i).subList(0, tamanho - nextPop.size()));
+            nextPop.addAll(fronteiras.get(i).subList((fronteiras.get(i).size() - (tamanho - nextPop.size())), fronteiras.get(i).size()-1));
             pop = nextPop;
             System.out.println("Geracao: " + numeroGeracao + " - Distancia: " + pop.get(3).getDistance());
+
+            // Plota nas gerações desejadas
+            if (numeroGeracao == 0 || numeroGeracao == 9 || numeroGeracao == 49 || numeroGeracao == 199 || numeroGeracao == 999) {
+                PlotUtils.plotObjetivos(pop, numeroGeracao + 1); // +1 pois começa do 0
+            }
 
             numeroGeracao++;
         }while(numeroGeracao < 1000);
