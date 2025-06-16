@@ -156,4 +156,21 @@ public class Example implements IIndividuo {
     public double getX(int i) {
         return this.x[i];
     }
+
+    @Override
+    public void mutacao(int ger) {
+        Random random = new Random();
+        boolean mutado = false;
+        for (int i = 0; i < this.x.length; i++) {
+            if(random.nextDouble() < 0.3) { // 10% de chance de mutação
+                this.x[i] += random.nextGaussian(0, 0.2); // Mutação gaussiana
+                if(this.x[i] < 0) this.x[i] = 0; // Garantir que x não seja negativo
+                if(this.x[i] > 1) this.x[i] = 1; // Garantir que x não ultrapasse 1
+                mutado = true;
+            }
+        }
+        if(!mutado) {
+            this.x[random.nextInt(this.x.length)] += random.nextGaussian(0, 0.2); // Se não mutou, faz uma mutação aleatória
+        }
+    }
 }

@@ -6,7 +6,8 @@ import Models.Factory;
 public class Main {
     public static void main(String[] args) {
         Factory factory =  new Factory();
-        int tamanho = 100;
+        int tamanho = 20;
+        int totalGeracoes = 1000;
         int numeroGeracao = 0;
         List<IIndividuo> pop = factory.createPopIni(tamanho, numeroGeracao);
         List<List<IIndividuo>> fronteiras;
@@ -24,7 +25,7 @@ public class Main {
             NSGAII.crowdingDistance(fronteiras.get(i));
             Utils.sort(fronteiras.get(i), "distance");
 
-            nextPop.addAll(fronteiras.get(i).subList((fronteiras.get(i).size() - (tamanho - nextPop.size())), fronteiras.get(i).size()-1));
+            nextPop.addAll(fronteiras.get(i).subList((fronteiras.get(i).size() - (tamanho - nextPop.size())), fronteiras.get(i).size()));
             pop = nextPop;
             System.out.println("Geracao: " + numeroGeracao + " - Distancia: " + pop.get(3).getDistance());
 
@@ -34,7 +35,7 @@ public class Main {
             }
 
             numeroGeracao++;
-        }while(numeroGeracao < 1000);
+        }while(numeroGeracao < totalGeracoes);
         NSGAII.imprimirFronteiras(fronteiras);
     }
 }

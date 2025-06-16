@@ -45,4 +45,6 @@ public interface IIndividuo {
     public List<IIndividuo> crossover(IIndividuo iIndividuo, int ger);
 
     public double getX(int i);
+
+    public void mutacao(int ger);
 }
