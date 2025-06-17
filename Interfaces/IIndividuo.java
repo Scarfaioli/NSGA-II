@@ -20,6 +20,8 @@ public interface IIndividuo {
 
     public double[] getFunc();
 
+    public double[] getX();
+
     public double getFunc(int i);
 
     public void resetDominantes();
@@ -43,8 +45,12 @@ public interface IIndividuo {
     public void calcDist(int i, double fmax, double fmin, double anterior, double proximo);
 
     public List<IIndividuo> crossover(IIndividuo iIndividuo, int ger);
+    
+    public IIndividuo crossover(double[] iIndividuo, int ger);
 
     public double getX(int i);
 
     public void mutacao(int ger);
+
+    public void mutacao(double[] x);
 }

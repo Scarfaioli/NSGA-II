@@ -173,4 +173,33 @@ public class Example implements IIndividuo {
             this.x[random.nextInt(this.x.length)] += random.nextGaussian(0, 0.2); // Se não mutou, faz uma mutação aleatória
         }
     }
+
+    @Override
+    public double[] getX() {
+        return this.x;
+    }
+
+    @Override
+    public IIndividuo crossover(double[] iIndividuo, int ger) {
+        Random random = new Random();
+        double[] x = new double[this.x.length];
+        boolean mutado = false;        
+        for (int i = 0; i < x.length; i++) {
+            x[i] = (random.nextDouble()<0.2) ? iIndividuo[i] : this.x[i];
+            if(x[i] == iIndividuo[i]){
+                mutado = true;
+            }
+        }
+        IIndividuo filho = new Example(x, ger);
+        if(!mutado) 
+            filho.mutacao(iIndividuo);   
+        return filho;
+    }
+
+    @Override
+    public void mutacao(double[] x) {
+        Random random = new Random();
+        int i = random.nextInt(this.x.length);
+        this.x[i] = x[i];
+    }
 }

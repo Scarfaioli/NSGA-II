@@ -21,12 +21,20 @@ public class Factory {
     public void makeChildren(List<IIndividuo> pop, int ger) {
         Random random = new Random();
         List<IIndividuo> filhos = new ArrayList<>();
-        for (int i = 0; i < pop.size()/2; i++) {
-            filhos.addAll(pop.get(i).crossover(pop.get(pop.size()-1-i), ger));
-        }
-
-        for (IIndividuo filho : filhos) {
-            if(random.nextDouble() < 0.2) filho.mutacao(ger);
+        
+        for (IIndividuo target : pop) {
+            IIndividuo base1 = pop.get(random.nextInt(pop.size()));
+            IIndividuo base2 = pop.get(random.nextInt(pop.size()));
+            
+            double[] ruido = pop.get(random.nextInt(pop.size())).getX().clone();
+            
+            double[] vetDiff = new double[target.getX().length];
+            for (int i = 0; i < vetDiff.length; i++) {
+                vetDiff[i] = base1.getX(i) - base2.getX(i);
+                vetDiff[i] *= 0.5;
+                ruido[i] += vetDiff[i];
+            }
+            filhos.add(target.crossover(ruido, ger));
         }
 
         pop.addAll(filhos);
